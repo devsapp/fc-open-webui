@@ -1,0 +1,62 @@
+Edition: 3.0.0
+Type: Project
+Name: fc-open-webui
+Provider:
+  - 阿里云 
+Version: dev
+Description: 使用 serverless devs 将 Open WebUI 部署到阿里云函数计算上
+HomePage: https://github.com/devsapp/fc-open-webui
+Tags: 
+  - 部署函数
+Organization: 阿里云函数计算（FC）
+Category: 人工智能
+Service:
+  函数计算:
+    Runtime: custom
+    Authorities:
+      - 创建函数
+Effective: Public
+Parameters:
+  type: object
+  additionalProperties: false # 不允许增加其他属性
+  required: # 必填项
+    - region
+    - functionName
+    - enableAuth
+  properties:
+    region:
+      title: 地域
+      type: string
+      default: cn-hangzhou
+      description: 创建应用所在的地区。由于当前模板涉及 Github 以及 HuggingFace 等网站访问，国内部分地区可能无法直接使用
+      enum:
+        - cn-hangzhou
+        - cn-shanghai
+    functionName:
+      title: 函数名
+      type: string
+      default: open_webui
+      description: 您可以根据需要多次创建该应用，通过函数名来区分出不同的镜像地址
+    webuiName:
+      title: WebUI 名称
+      type: string
+      default: Open WebUI
+      description: 您可以为 Open WebUI 定义属于自己的个性化名称
+    enableAuth:
+      title: 开启鉴权
+      type: boolean
+      default: false
+      description: |+
+        开启时，首次登录需要注册本地账号，建议配合 NAS 实现文件持久化；如果仅测试使用，可以考虑不开启鉴权（此时如果您泄漏了域名，可能会产生预期外的费用）
+    ollamaUrls:
+      title: Ollama 接口地址
+      type: string
+      description: 存在多个接口时，使用 “;” 进行分割。
+    openaiUrls:
+      title: OpenAI 接口地址
+      type: string
+      description: 存在多个接口时，使用 “;” 进行分割。如果使用官方 API，请使用 “https://api.openai.com”
+    openaiKeys:
+      title: OpenAI 密钥
+      type: string
+      description: 存在多个密钥时，使用 “;” 进行分割。需要和 OpenAI 接口地址一一对应

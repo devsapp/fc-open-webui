@@ -1,0 +1,55 @@
+edition: 3.0.0 #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: fc-open-webui
+access: "{{ access }}"
+vars:
+  imageTag: "git-98ec38a"
+  region: "{{ region }}"
+  functionName: "{{ functionName }}"
+  imageUrl: "registry.{{region}}.aliyuncs.com/aliyun-fc/fc-open-webui:${vars.imageTag}"
+  enableAuth: "{{ if enableAuth }}True{{ else }}False{{ /if }}"
+  webuiName: "{{ webuiName || ''}}"
+  ollamaUrls: "{{ ollamaUrls || ''}}"
+  openaiUrls: "{{ openaiUrls || ''}}"
+  openaiKeys: "{{ openaiKeys || ''}}"
+
+resources:
+  webui:
+    component: fc3
+    props:
+      region: "${vars.region}"
+      functionName: "${vars.functionName}"
+      description: "Open WebUI是一个可扩展、功能丰富且用户友好的自托管WebUI，完全离线操作。它支持各种LLM运行程序，包括Ollama和兼容OpenAI的API。"
+      timeout: 7200
+      diskSize: 512
+      runtime: custom-container
+      instanceConcurrency: 100
+      cpu: 2
+      memorySize: 4096
+      customContainerConfig:
+        image: ${vars.imageUrl}
+        port: 8080
+      environmentVariables:
+        WEBUI_AUTH: "${vars.enableAuth}" # 是否开启登陆验证
+        WEBUI_NAME: "${vars.webuiName}" # 应用名
+        WEBUI_SECRET_KEY: "${this.props.functionName}" # 加密 key
+        OLLAMA_BASE_URLS: "${vars.ollamaUrls}" # Ollama 地址
+        OPENAI_API_BASE_URLS: "${vars.openaiUrls}" # OpenAI API 地址
+        OPENAI_API_KEYS: "${vars.openaiKeys}" # OpenAI key
+
+  custom-domain:
+    component: fc3-domain
+    props: #  组件的属性值
+      region: ${vars.region}
+      domainName: auto
+      protocol: HTTP
+      routeConfig:
+        routes:
+          - functionName: ${resources.webui.props.functionName}
+            methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            path: /*
+            qualifier: LATEST
