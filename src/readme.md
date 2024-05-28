@@ -85,11 +85,17 @@ Open WebUI 是一个可扩展、功能丰富且用户友好的自托管 WebUI，
 
 人工智能技术对社会具有变革潜力，然而由于其存在一定的门槛，强大的 AI 无法为所有人提供便利。基于这一认识，Open WebUI 致力于通过开发一款易于安装、功能丰富的 WebUI。这样一来，任何具备基础技术技能的人都能够利用人工智能的力量，提升自己的工作效率。
 
+通过 Serverless 开发平台，您只需要几步，就可以体验 Open WebUI 这一优秀的项目。享受 Serverless 架构带来的降本提效技术红利，感受 AI 带来的生产力提升。
+
 </appdetail>
 
 ## 使用流程
 
 <usedetail id="flushContent">
+
+点击访问域名
+
+![](https://img.alicdn.com/imgextra/i3/O1CN01mHlZaV1N3SbXr89Kz_!!6000000001514-0-tps-893-636.jpg)
 
 进入页面，选择合适的模型进行会话。
 
