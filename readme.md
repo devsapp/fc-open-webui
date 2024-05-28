@@ -39,10 +39,9 @@
 <service>
 
 
-
-| 服务/业务 |  权限  | 相关文档 |
-| --- |  --- | --- |
-| 函数计算 |  创建函数 | [帮助文档](https://help.aliyun.com/product/2508973.html) [计费文档](https://help.aliyun.com/document_detail/2512928.html) |
+| 服务 |  备注  |
+| --- |  --- |
+| 函数计算 FC |  提供 CPU、GPU 等计算资源 |
 
 </service>
 
